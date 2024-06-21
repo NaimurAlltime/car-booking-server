@@ -20,19 +20,29 @@ const queryFeatures = (
     }
 
     // lookup control
-    //not yet set
+
+    let populate: string;
+
+    if (req.query.populate) {
+      populate = String(req.query.populate);
+      populate = populate.split(",").join(" ");
+    } else {
+      populate = "";
+    }
 
     if (documentNumber === "single") {
       const queryFeaturesObj: Partial<IQueryFeatures> = {
         fields: fieldsObj,
+        populate,
       };
 
       req.queryFeatures = queryFeaturesObj;
     } else {
       // set limit and skip to the request
       const page: number = parseInt(req.query.page as string) || 1;
-      const limit: number = parseInt(req.query.limit as string) || 5;
-      const skip: number = (page - 1) * limit;
+      const limit: number | undefined =
+        parseInt(req.query.limit as string) || undefined;
+      const skip: number | undefined = limit ? (page - 1) * limit : undefined;
       const searchKey: string = req.query.searchKey
         ? String(req.query.searchKey)
         : "";
@@ -59,7 +69,14 @@ const queryFeatures = (
         ...query,
       };
 
-      const excludedFields = ["page", "sort", "limit", "fields", "searchKey"];
+      const excludedFields = [
+        "page",
+        "sort",
+        "limit",
+        "fields",
+        "searchKey",
+        "populate",
+      ];
 
       excludedFields.forEach((el) => delete filters[el]);
 
@@ -79,6 +96,7 @@ const queryFeatures = (
         skip,
         fields: fieldsObj,
         filters,
+        populate,
         sort: sortObj,
         searchKey,
       };

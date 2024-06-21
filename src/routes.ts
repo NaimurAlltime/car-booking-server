@@ -1,6 +1,8 @@
 import express, { Router } from "express";
-import authRoutes from "./modules/auth/auth.route";
-import locationRoutes from "./modules/location/location.route";
+import authRoutes from "./modules/auth/auth.routes";
+import carsRoutes from "./modules/cars/cars.routes";
+import locationRoutes from "./modules/location/location.routes";
+import searchRoutes from "./modules/search/search.routes";
 
 const router: Router = express.Router();
 
@@ -12,6 +14,14 @@ const routes: { path: string; route: Router }[] = [
   {
     path: "/location",
     route: locationRoutes,
+  },
+  {
+    path: "/cars",
+    route: carsRoutes,
+  },
+  {
+    path: "/search",
+    route: searchRoutes,
   },
 ];
 
