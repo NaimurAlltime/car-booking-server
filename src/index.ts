@@ -2,6 +2,7 @@ import { Server } from "http";
 import app from "./app";
 import config from "./config";
 import { connectDB } from "./utils/connectDB.util";
+import seedSuperAdmin from "./db";
 
 // handle uncaughtExceptions
 process.on("uncaughtException", () => {
@@ -14,6 +15,9 @@ let server: Server;
 const runServer = async (): Promise<void> => {
   try {
     await connectDB();
+
+    await seedSuperAdmin();
+
     server = app.listen(config.port, () => {
       if (config.isDevelopment) {
         console.info(`✔ Server started at http://localhost:${config.port}`);
