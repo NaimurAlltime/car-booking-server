@@ -3,6 +3,7 @@ import authRoutes from "./modules/auth/auth.routes";
 import carsRoutes from "./modules/cars/cars.routes";
 import locationRoutes from "./modules/location/location.routes";
 import searchRoutes from "./modules/search/search.routes";
+import paymentRoutes from "./modules/payment/payment.routes";
 
 const router: Router = express.Router();
 
@@ -22,6 +23,10 @@ const routes: { path: string; route: Router }[] = [
   {
     path: "/search",
     route: searchRoutes,
+  },
+  {
+    path: "/payments",
+    route: paymentRoutes,
   },
 ];
 
