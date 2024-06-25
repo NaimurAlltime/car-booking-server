@@ -15,6 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const app_1 = __importDefault(require("./app"));
 const config_1 = __importDefault(require("./config"));
 const connectDB_util_1 = require("./utils/connectDB.util");
+const db_1 = __importDefault(require("./db"));
 // handle uncaughtExceptions
 process.on("uncaughtException", () => {
     console.error("Uncaught Exception...😓. Process Terminated");
@@ -24,6 +25,7 @@ let server;
 const runServer = () => __awaiter(void 0, void 0, void 0, function* () {
     try {
         yield (0, connectDB_util_1.connectDB)();
+        yield (0, db_1.default)();
         server = app_1.default.listen(config_1.default.port, () => {
             if (config_1.default.isDevelopment) {
                 console.info(`✔ Server started at http://localhost:${config_1.default.port}`);
