@@ -1,13 +1,27 @@
 import { Request, Response } from "express";
-import { createPaymentIntent } from "./payment.service";
+import { Payment } from "./payment.interface";
+import { createPayment, getPaymentHistory } from "./payment.service";
 
-export const createPaymentIntentHandler = async (
-  req: Request,
-  res: Response
-) => {
+export const handlePayment = async (req: Request, res: Response) => {
+  const { amount, currency, description, source }: Payment = req.body;
+
   try {
-    const paymentIntent = await createPaymentIntent(req.body);
-    res.status(201).json(paymentIntent);
+    const charge = await createPayment({
+      amount,
+      currency,
+      description,
+      source,
+    });
+    res.status(201).json(charge);
+  } catch (error: any) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+export const handleGetPaymentHistory = async (req: Request, res: Response) => {
+  try {
+    const payments = await getPaymentHistory();
+    res.status(200).json(payments);
   } catch (error: any) {
     res.status(500).json({ error: error.message });
   }

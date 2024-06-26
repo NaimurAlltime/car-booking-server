@@ -1,8 +1,9 @@
 import express, { Router } from "express";
-import { createPaymentIntentHandler } from "./payment.controller";
+import { handleGetPaymentHistory, handlePayment } from "./payment.controller";
 
 const paymentRoutes: Router = express.Router();
 
-paymentRoutes.post("/create-payment-intent", createPaymentIntentHandler);
+paymentRoutes.post("/pay", handlePayment);
+paymentRoutes.get("/history", handleGetPaymentHistory);
 
 export default paymentRoutes;
