@@ -1,6 +1,6 @@
-export interface PaymentIntentData {
+export interface Payment {
   amount: number;
   currency: string;
-  payment_method: string;
-  confirmation_method: "manual" | "automatic";
+  description: string;
+  source: string;
 }
