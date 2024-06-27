@@ -10,7 +10,7 @@ const carsRoutes: Router = express.Router();
 
 carsRoutes.post(
   "/create",
-  authorization(),
+  // authorization(),
   uploadToCloudinary("image", "cars", ["image/jpeg", "image/jpg", "image/png"]),
   carsController.createCars
 );
@@ -23,10 +23,12 @@ carsRoutes.patch(
   "/update/:id",
   validateRequest(carsValidation.updateReq),
   uploadToCloudinary("image", "cars", ["image/jpeg", "image/jpg", "image/png"]),
-  authorization(),
+  // authorization(), 
   carsController.updateCars
 );
 
-carsRoutes.delete("/delete/:id", authorization(), carsController.deleteCars);
+carsRoutes.delete("/delete/:id",
+  //  authorization(), 
+   carsController.deleteCars);
 
 export default carsRoutes;

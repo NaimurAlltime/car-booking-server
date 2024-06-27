@@ -10,7 +10,7 @@ const locationRoutes: Router = express.Router();
 locationRoutes.post(
   "/create",
   validateRequest(locationValidation.createReq),
-  authorization(),
+  // authorization(),
   locationController.createLocation
 );
 
@@ -29,13 +29,13 @@ locationRoutes.get(
 locationRoutes.patch(
   "/update/:id",
   validateRequest(locationValidation.updateReq),
-  authorization(),
+  // authorization(),
   locationController.updateLocation
 );
 
 locationRoutes.delete(
   "/delete/:id",
-  authorization(),
+  // authorization(),
   locationController.deleteLocation
 );
 
